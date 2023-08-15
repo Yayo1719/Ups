@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "M5lV1mGsJ8eY92kspBUcL957p+mF3xgjl/wWREZFSNYnEhfhUviWjJJwD5atKkgBk2xEt26I1N4yUb+u710Z3Q==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\yayo1\\Desktop\\GIT\\ups\\UPS\\Api\\YarvizApiHospital\\YarvizApiHospital\\YarvizApiHospital.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\yayo1\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "C:\\Users\\yayo1\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\yayo1\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "C:\\Users\\yayo1\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "C:\\Users\\yayo1\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
+    "C:\\Users\\yayo1\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
