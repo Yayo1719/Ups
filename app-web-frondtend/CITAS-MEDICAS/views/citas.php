@@ -70,11 +70,7 @@ if ($varsesion == null || $varsesion = '') {
                         <?php
 
                         include "../includes/db.php";
-                        $result = mysqli_query($conexion, "SELECT c.id, c.fecha, c.hora, c.id_paciente, 
-                        c.id_doctor, c.id_especialidad, c.observacion, c.fecha_registro, e.estado FROM citas c 
-                        LEFT JOIN estado e ON c.estado= e.id  ");
-                        while ($fila = mysqli_fetch_assoc($result)) :
-
+                        
                         ?>
                             <tr>
                                 <td><?php echo $fila['id']; ?></td>

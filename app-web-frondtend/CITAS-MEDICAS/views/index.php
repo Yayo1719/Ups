@@ -70,11 +70,7 @@ include '../includes/header.php';
                         <?php 
                                include "../includes/db.php"; 
     
-                                $SQL="SELECT id FROM pacientes ORDER BY id";
-                                $dato = mysqli_query($conexion, $SQL);
-                                $fila= mysqli_num_rows($dato);
-    
-                                echo($fila); ?>
+                              
 
                         </div>
                     </div>
@@ -102,11 +98,7 @@ include '../includes/header.php';
                                 <?php 
                                include "../includes/db.php"; 
     
-                                $SQL="SELECT id FROM doctor ORDER BY id";
-                                $dato = mysqli_query($conexion, $SQL);
-                                $fila= mysqli_num_rows($dato);
-    
-                                echo($fila); ?>
+                               
 
                                 </div>
                             </div>
@@ -133,11 +125,7 @@ include '../includes/header.php';
                         <?php 
                                include "../includes/db.php"; 
     
-                                $SQL="SELECT id FROM user ORDER BY id";
-                                $dato = mysqli_query($conexion, $SQL);
-                                $fila= mysqli_num_rows($dato);
-    
-                                echo($fila); ?>
+                               
 
                         </div>
                     </div>

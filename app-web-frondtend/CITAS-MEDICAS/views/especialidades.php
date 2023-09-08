@@ -59,9 +59,7 @@ if ($varsesion == null || $varsesion = '') {
                         <?php
 
                         include "../includes/db.php";
-                        $result = mysqli_query($conexion, "SELECT * FROM especialidades ");
-                        while ($fila = mysqli_fetch_assoc($result)) :
-
+                      
                         ?>
                             <tr>
                                 <td><?php echo $fila['nombre']; ?></td>

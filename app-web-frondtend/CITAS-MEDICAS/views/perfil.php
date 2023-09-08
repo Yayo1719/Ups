@@ -9,20 +9,7 @@ if($actualsesion == null || $actualsesion == ''){
 
 
 }
-?>
-<?php
 
-$sql = "SELECT  user.id, user.nombre, user.correo, user.password, user.fecha,
-roles.rol FROM user 
-LEFT JOIN roles ON user.rol= roles.id  WHERE nombre ='$actualsesion'";
-$usuarios = mysqli_query($conexion, $sql);
-if($usuarios -> num_rows > 0){
-foreach($usuarios as $key => $fila ){
-
-
-
-
-?>
 <tr>
 
 </tr>

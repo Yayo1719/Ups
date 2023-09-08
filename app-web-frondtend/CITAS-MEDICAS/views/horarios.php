@@ -62,8 +62,7 @@ if ($varsesion == null || $varsesion = '') {
                         <?php
 
                         include "../includes/db.php";
-                        $result = mysqli_query($conexion, "SELECT * FROM horario ");
-                        while ($fila = mysqli_fetch_assoc($result)) :
+                       
 
                         ?>
                             <tr>

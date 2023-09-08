@@ -69,10 +69,7 @@ if ($varsesion == null || $varsesion = '') {
                         <?php
 
                         include "../includes/db.php";
-                        $result = mysqli_query($conexion, "SELECT  user.id, user.nombre, user.correo, user.password, user.fecha,
-roles.rol FROM user 
-LEFT JOIN roles ON user.rol= roles.id ");
-                        while ($fila = mysqli_fetch_assoc($result)) :
+                        
 
                         ?>
                             <tr>
