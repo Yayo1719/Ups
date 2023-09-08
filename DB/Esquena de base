@@ -1,0 +1,206 @@
+
+
+		 create database DbCitasMedicas;
+
+		 use DbCitasMedicas;
+
+		 -- squemas *********************************
+		 create schema Confg;
+		 create schema Cat;
+		 create schema Reportes;
+		 create schema Pos;
+
+
+		 -- tablas
+		
+		 create table Cat.Catalogo (
+			IdCatalogo int,
+			Descripcion varchar(200),
+			Estado bit,
+			Primary key (IdCatalogo)
+		 );
+		 
+		 insert into Cat.Catalogo 
+		 values 
+		 (1001, 'TipoIdentificacion', 1),
+		 (1002, 'Estados',1),
+		 (1003, 'TiposDeSangre', 1),
+		 (1004, 'Especialidades', 1);
+
+		 --		select * from  Cat.Catalogo
+		
+		create table Cat.CatalogoDetalle (
+			IdCatalogo int,
+			IdDetalle int,
+			Descripcion varchar(20),
+			Estado bit,
+			primary key (IdCatalogo, IdDetalle),
+			foreign key (IdCatalogo) references Cat.Catalogo (IdCatalogo)
+		 );
+
+		 insert into Cat.CatalogoDetalle
+		 values 
+		 (1001, 1001, 'Cedula', 1),
+		 (1001, 1002, 'Pasaporte', 1),
+		 (1002, 1001, 'Activo', 1),
+		 (1002, 1002, 'InActivo', 1),
+		 (1002, 1003, 'Bloqueado', 1),
+		 (1003, 1001, 'A+', 1),
+		 (1003, 1002, 'A-', 1),
+		 (1003, 1003, 'Ab+', 1),
+		 (1003, 1004, 'O+', 1),
+		 (1004, 1001, 'Internista', 1),
+		 (1004, 1002, 'Dermatologo', 1),
+		 (1004, 1003, 'Anesteciologo', 1);
+
+		 --		select * from Cat.CatalogoDetalle
+
+
+		  create table Confg.Usuarios (
+			Id int identity(1,1),
+			Codigo int ,
+			Identificaion varchar(20),
+			IdCatalogo int,
+			TipoIdentificacion int,
+			PrimerNombre varchar(100),
+			SegundoNombre varchar(100),
+			PrimerApellido varchar(100),
+			SegundoApellido varchar(100),
+			Telefono varchar(20),
+			FechaNacimiento date,
+			IdCatalogo2 int,
+			IdEstado int,
+			primary key (codigo),
+			foreign key (IdCatalogo, TipoIdentificacion) 
+			references Cat.CatalogoDetalle (IdCatalogo, IdDetalle),
+			foreign key (IdCatalogo2, IdEstado) 
+			references Cat.CatalogoDetalle (IdCatalogo, IdDetalle)
+		 ); 
+
+		 insert into Confg.Usuarios (Codigo, Identificaion, IdCatalogo, TipoIdentificacion,
+			PrimerNombre, SegundoNombre, PrimerApellido, SegundoApellido, Telefono, FechaNacimiento,
+			IdCatalogo2, IdEstado)
+		 values 
+		 (1001, '1729847523', 1001, 1001, 'Andres', '', 'Toro', '', '0983365228', '1990/02/09',
+		  1002, 1001),
+		 (1002, '1729847524', 1001, 1001, 'Juan', '', 'Perez', '', '0983365255', '1990/02/09',
+		  1002, 1001),
+		 (1003, '1729847525', 1001, 1001, 'Yesid', '', 'Toro', '', '0983365266', '2015/11/26',
+		  1002, 1001);
+
+
+		 -- select * from Confg.Usuarios
+
+
+		 create table Confg.Pacientes (
+			Id int identity(1,1),
+			Codigo int ,
+			IdCatalogo3 int,
+			IdTipoSangre int, 
+			IdCatalogo2 int,
+			IdEstado int,
+			primary key(codigo),
+			foreign key (IdCatalogo2, IdEstado) 
+			references Cat.CatalogoDetalle (IdCatalogo, IdDetalle),
+			foreign key (IdCatalogo3, IdTipoSangre) 
+			references Cat.CatalogoDetalle (IdCatalogo, IdDetalle),
+			foreign key (Codigo) 
+			references Confg.Usuarios (Codigo)
+		 );
+
+		 insert into Confg.Pacientes (Codigo, IdCatalogo3, IdTipoSangre, IdCatalogo2, IdEstado)
+		 values 
+		 (1001, 1003, 1004, 1002, 1001),
+		 (1002, 1003, 1004, 1002, 1001);
+
+		 --		select * from Confg.Pacientes
+
+
+		 create table Confg.Medicos (
+			Id int identity(1,1),
+			Codigo int,
+			IdCatalogo2 int,
+			IdEstado int,
+			IdCatalogo int,
+			IdEspacialidad int,
+			primary key(codigo),
+			foreign key (IdCatalogo2, IdEstado) 
+			references Cat.CatalogoDetalle (IdCatalogo, IdDetalle),
+			foreign key (Codigo) 
+			references Confg.Usuarios (Codigo),
+			foreign key (IdCatalogo, IdEspacialidad) 
+			references Cat.CatalogoDetalle (IdCatalogo, IdDetalle)
+		 );
+
+		 insert into Confg.Medicos (Codigo, IdCatalogo2, IdEstado, IdCatalogo, IdEspacialidad)
+		 values 
+		 (1001, 1002, 1001, 1004, 1003),
+		 (1003, 1002, 1001, 1004, 1003);
+
+		--		select * from Confg.Medicos
+
+
+		----  ***** vistas 
+
+		create view Reportes.Usuarios
+		as 
+	    select t1.Codigo, t2.Descripcion TipoIdentificacion, t1.Identificaion, t1.PrimerNombre, t1.SegundoNombre,
+			t1.PrimerApellido, t1.SegundoApellido, t1.Telefono, t1.FechaNacimiento, t3.Descripcion Estado
+		from Confg.Usuarios t1
+		inner join Cat.CatalogoDetalle t2 on t1.IdCatalogo = t2.IdCatalogo and t1.TipoIdentificacion =
+			t2.IdDetalle
+		inner join Cat.CatalogoDetalle t3 on t1.IdCatalogo2 = t3.IdCatalogo and t1.IdEstado =
+			t3.IdDetalle;
+
+
+		--		select * from Reportes.Usuarios ;
+
+
+		create view Reportes.Pacientes
+		as
+		select t1.Codigo, t3.TipoIdentificacion, t3.Identificaion, t3.PrimerNombre, t3.SegundoNombre,
+			t3.PrimerApellido, t3.SegundoApellido, t3.Telefono, t3.FechaNacimiento, t3.Estado EstadoUSuario,
+			t2.Descripcion EstadoPaciente, t4.Descripcion TipoDeSangre
+		from Confg.Pacientes t1
+		inner join Cat.CatalogoDetalle t2 on t1.IdCatalogo2 = t2.IdCatalogo and t1.IdEstado =
+			t2.IdDetalle
+		inner join Reportes.Usuarios t3 on t1.Codigo = t3.Codigo 
+		inner join Cat.CatalogoDetalle t4 on t1.IdCatalogo3 = t4.IdCatalogo and t1.IdTipoSangre =
+			t4.IdDetalle
+
+
+		--		 select * from Reportes.Pacientes
+
+
+		create view Reportes.Medicos
+		as
+		select t1.Codigo, t3.TipoIdentificacion, t3.Identificaion, t3.PrimerNombre, t3.SegundoNombre,
+			t3.PrimerApellido, t3.SegundoApellido, t3.Telefono, t3.FechaNacimiento, t3.Estado EstadoUSuario,
+			t2.Descripcion EstadoMedico, t4.Descripcion Especialidad
+		from Confg.Medicos t1
+		inner join Cat.CatalogoDetalle t2 on t1.IdCatalogo2 = t2.IdCatalogo and t1.IdEstado =
+			t2.IdDetalle
+		inner join Reportes.Usuarios t3 on t1.Codigo = t3.Codigo 
+		inner join Cat.CatalogoDetalle t4 on t1.IdCatalogo = t4.IdCatalogo and t1.IdEspacialidad =
+			t4.IdDetalle
+
+
+		--		 select * from Reportes.Medicos
+
+
+		create table Pos.CitaMedica (
+			id int identity(1,1),
+			Codigo int,
+			Fecha datetime,
+			CodPaciente int,
+			CodMedico int
+			primary key (Codigo),
+			foreign key (CodPaciente) references Confg.Pacientes (Codigo),
+			foreign key (CodMedico) references Confg.Medicos (Codigo)
+		)
+
+		insert into Pos.CitaMedica (Codigo, Fecha, CodPaciente, CodMedico)
+		values
+		(1001, getdate(), 1002, 1003)
+
+		--		select * from Pos.CitaMedica
